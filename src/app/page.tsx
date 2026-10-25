@@ -141,7 +141,7 @@ export default function Home() {
             <p className="eyebrow">COMPLIMENTARY WITH EVERY PACKAGE</p>
             <h2 id="love-heading">More than coffee.<br /><em>A little extra love.</em></h2>
             <p>
-              Our free Love Wall gives your guests a place to leave heartfelt
+              Our <b>free Love Wall</b> gives your guests a place to leave heartfelt
               notes, sweet messages, and words of encouragement.
             </p>
             <p>
