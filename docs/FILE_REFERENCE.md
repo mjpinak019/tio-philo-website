@@ -16,6 +16,7 @@ tio-philo-website/
 │   │   └── globals.css              Brand styles and responsive rules
 │   ├── components/
 │   │   ├── brand-logo.tsx           Uploaded logo component
+│   │   ├── drink-line-art.tsx       Continuous SVG drink drawings
 │   │   ├── photo-placeholder.tsx    Photo or empty-photo presentation
 │   │   └── coffee-branch.tsx        Decorative SVG branch
 │   ├── lib/
@@ -33,6 +34,7 @@ tio-philo-website/
 │   ├── brand/
 │   │   ├── tio-philo-emblem.png
 │   │   ├── tio-philo-emblem-dark.jpg
+│   │   ├── tio-philo-emblem-dark-transparent.png
 │   │   ├── tio-philo-love-wall.png
 │   │   ├── tio-philo-facebook-qr.svg
 │   │   ├── tio-philo-facebook-qr.png
@@ -109,7 +111,7 @@ Salesforce comparison: it serves a similar organizational purpose to Custom Meta
 - A verse has `text`, `reference`, and `translation`. These are the flyer’s wording and attribution labels, displayed in a quotation with a caption; each reference is its React list key.
 - A package has numeric `cups` and `price`. Store `6000`, not `"₱6,000"`.
 - An add-on has string `name` and `detail`. Here `detail` is already display text, so it may contain `₱`, a unit, or words such as `Free`.
-- A drink photo has string `label`, string `alt`, and `src` that is either a string or `null`.
+- A drink photo has string `label`, string `alt`, `src` that is either a string or `null`, and an `illustration` choosing `coffee`, `creamy`, or `refreshing`.
 
 The current JSX uses these values as list keys: category, flavor name, cup count, add-on name, photo label, and phone URL. Avoid duplicate values within each list, or introduce separate unique IDs and update the corresponding `key` expressions.
 
@@ -120,6 +122,7 @@ export type DrinkPhoto = {
   label: string;
   alt: string;
   src: string | null;
+  illustration: "coffee" | "creamy" | "refreshing";
 };
 ```
 
@@ -255,7 +258,7 @@ Next.js recognizes this export and creates head information. `Metadata` is a typ
 
 `sizes` does not directly set the visible size. CSS does. These hints are approximate; if the layout changes significantly, review them for efficient loading.
 
-The PNG and dark JPG include wide surrounding margins. `.brand-logo` clips the rendered image, and `.brand-logo img` scales/positions it to show the emblem. The large variant uses its own aspect ratio and positioning for the JPG. Brightness filters and `mix-blend-mode: multiply` blend the light image background into the page. Both source files remain unchanged. A replacement logo with different margins may need different CSS framing.
+The header PNG includes wide surrounding margins; CSS frames it and uses brightness/multiply blending. The hero imports `tio-philo-emblem-dark-transparent.png` with transparent regions outside and inside the dark badge. It has its own aspect ratio and framing, normal blending, and no brightness filter. The original dark JPG is retained as a reference. A replacement logo with different margins may need different CSS framing.
 
 ## 6. `src/components/photo-placeholder.tsx`: photo or placeholder
 
@@ -277,9 +280,15 @@ When `photo.src` is truthy:
 
 ### Placeholder branch
 
-When `photo.src` is `null` or an empty string, a small inline camera SVG and “Drink photo coming soon” text are rendered. The SVG is decorative, so `aria-hidden="true"` hides it from assistive technology.
+When `photo.src` is `null` or an empty string, `DrinkLineArt` and “Drink photo coming soon” text are rendered. `photo.illustration` selects the coffee, creamy, or refreshing drawing. The SVG is decorative, so `aria-hidden="true"` hides it from assistive technology.
 
 `<figcaption>{photo.label}</figcaption>` is rendered in both branches. You do not need to change the component to replace a placeholder: update `drinkPhotos` in `site.ts`.
+
+### `src/components/drink-line-art.tsx`: drink drawings
+
+**Function:** `DrinkLineArt({ kind }: { kind: DrinkPhoto["illustration"] })`. It returns one decorative SVG with a single continuous `<path>`. It runs as part of server rendering, with no browser event handlers or data writes.
+
+`DrinkPhoto["illustration"]` is an indexed-access type: reuse the allowed values of that property rather than repeat them in another type. `Record<DrinkPhoto["illustration"], string>` requires `drinkPaths` to have a path string for every allowed drink kind. `drinkPaths[kind]` selects the path, like a typed Apex Map lookup. `currentColor`, rounded line ends, and stroke width are controlled in CSS.
 
 ## 7. `src/components/coffee-branch.tsx`: decorative vector
 
@@ -356,7 +365,7 @@ Some decorative shades are literal colors in later rules. Changing one root toke
 | `.photo-gallery` | Three photo columns |
 | `.drink-photo`, `figcaption`, `:nth-child(...)` rules | Photo blocks, captions, alternate placeholder backgrounds |
 | `.photo-frame`, `.photo-frame img` | Frame dimensions and image crop behavior |
-| `.photo-placeholder`, SVG/span rules | Empty-photo frame, camera icon, and label |
+| `.photo-placeholder`, `.drink-line-art`, span rules | Empty-photo frame, continuous drink illustration, and label |
 | `.packages-section`, `.package-layout` | Dark brown section, scoped cream/gold color variables, and pricing/add-on columns |
 | `.package-table`, descendant header/cell/span rules | Price alignment, borders, numeric appearance |
 | `.package-extras`, descendant heading/list/button rules | Add-on details and event-planning link |
@@ -559,7 +568,8 @@ It declares no custom functions. Its commands work in sequence:
 | File | Used by | Function |
 | --- | --- | --- |
 | `public/brand/tio-philo-emblem.png` | `BrandLogo` static import | The uploaded 1102 × 1427 logo image, unchanged |
-| `public/brand/tio-philo-emblem-dark.jpg` | Large `BrandLogo` variant | The uploaded 1578 × 2028 dark/reverse logo, unchanged |
+| `public/brand/tio-philo-emblem-dark.jpg` | Reference only | The uploaded 1578 × 2028 dark/reverse logo, unchanged |
+| `public/brand/tio-philo-emblem-dark-transparent.png` | Large `BrandLogo` variant | 1350 × 1165 dark logo with transparent outside and interior light areas; see [asset notes](ASSET_NOTES.md) |
 | `public/brand/tio-philo-love-wall.png` | Homepage static image import | 1340 × 1174 transparent illustration adapted from the supplied Love Wall graphic; see [asset notes](ASSET_NOTES.md) |
 | `public/brand/tio-philo-facebook-qr.svg` | `site.facebookQr` | Functional QR generated for the confirmed Facebook URL; use a QR encoder to change its destination |
 | `public/brand/tio-philo-facebook-qr.png` | Reference only | Supplied QR screenshot, unchanged; encodes an intermediary QR-service address |

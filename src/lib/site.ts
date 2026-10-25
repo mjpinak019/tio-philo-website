@@ -71,6 +71,7 @@ export type DrinkPhoto = {
   label: string;
   alt: string;
   src: string | null;
+  illustration: "coffee" | "creamy" | "refreshing";
 };
 
 // Place real photos in public/photos, then set src to /photos/your-file.jpg.
@@ -78,16 +79,19 @@ export type DrinkPhoto = {
 export const drinkPhotos: DrinkPhoto[] = [
   {
     label: "Our coffee",
+    illustration: "coffee",
     alt: "Tio Philo coffee served at an event",
     src: null,
   },
   {
     label: "Creamy favorites",
+    illustration: "creamy",
     alt: "Tio Philo milk-based drinks",
     src: null,
   },
   {
     label: "Something refreshing",
+    illustration: "refreshing",
     alt: "Tio Philo fruit refreshers",
     src: null,
   },

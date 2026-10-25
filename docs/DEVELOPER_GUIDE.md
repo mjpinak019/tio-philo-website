@@ -94,7 +94,7 @@ There is no SOQL query, Apex controller call, `@wire`, or DML operation in this 
 
 1. `drinkPhotos` contains a photo configuration object.
 2. `Home` passes the object into `<PhotoPlaceholder photo={photo} />`.
-3. If `photo.src` is `null`, the component renders a camera symbol and placeholder text.
+3. If `photo.src` is `null`, the component renders `DrinkLineArt`, using `photo.illustration` to select the continuous-line drink drawing, and placeholder text.
 4. If `photo.src` is a nonempty path, it renders Next.js's `<Image>` instead.
 5. CSS determines the frame's size and crops the displayed image to fit.
 
@@ -166,6 +166,7 @@ export type DrinkPhoto = {
   label: string;
   alt: string;
   src: string | null;
+  illustration: "coffee" | "creamy" | "refreshing";
 };
 ```
 
@@ -176,10 +177,11 @@ public class DrinkPhotoDTO {
     @AuraEnabled public String label { get; set; }
     @AuraEnabled public String alt { get; set; }
     @AuraEnabled public String src { get; set; }
+    @AuraEnabled public String illustration { get; set; }
 }
 ```
 
-The TypeScript `type` describes a permitted object shape. It is not a constructor, database schema, or record type, and you do not write `new DrinkPhoto()`.
+The TypeScript `type` describes a permitted object shape. It is not a constructor, database schema, or record type, and you do not write `new DrinkPhoto()`. The `illustration` union restricts this property to three literal strings, loosely like a restricted Salesforce picklist at compile time. The Apex string in this teaching example does not enforce that restriction by itself.
 
 `string | null` is a **union**: the field can contain a string or `null`. With this project's strict checking, `src: 123` is invalid. TypeScript checks your source; it does not automatically validate a value received from a future public API. The [TypeScript everyday types guide](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html) explains annotations, object types, and unions.
 

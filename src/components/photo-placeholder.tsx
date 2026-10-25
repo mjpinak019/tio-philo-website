@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { DrinkLineArt } from "@/components/drink-line-art";
 import { publicAssetPath } from "@/lib/paths";
 import type { DrinkPhoto } from "@/lib/site";
 
@@ -16,11 +17,7 @@ export function PhotoPlaceholder({ photo }: { photo: DrinkPhoto }) {
         </div>
       ) : (
         <div className="photo-frame photo-placeholder">
-          <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
-            <path d="M8 15h9l3-5h8l3 5h9v24H8z" />
-            <circle cx="24" cy="26" r="8" />
-            <path d="M34 20h2" />
-          </svg>
+          <DrinkLineArt kind={photo.illustration} />
           <span>Drink photo coming soon</span>
         </div>
       )}

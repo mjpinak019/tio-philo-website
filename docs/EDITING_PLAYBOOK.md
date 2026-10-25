@@ -111,12 +111,13 @@ Keep the name unique within the category. If you need repeated display names lat
   label: "Our coffee",
   alt: "Tio Philo Spanish latte served in a branded iced cup",
   src: "/photos/coffee.jpg",
+  illustration: "coffee",
 },
 ```
 
 Write alt text describing the actual photo. The text above is only an example; it is not a claim about an image already in this project.
 
-The component now selects the image branch. Set `src` back to `null` to restore the placeholder.
+The component now selects the image branch. Set `src` back to `null` to restore the placeholder. Its `illustration` can be `coffee`, `creamy`, or `refreshing`; edit the paths in `src/components/drink-line-art.tsx` to change the drawing itself.
 
 Check the file from PowerShell if necessary:
 
@@ -178,7 +179,7 @@ Edit the `<h1>` in `page.tsx`. Keep the `id="hero-heading"` unless you also upda
 
 ### Logo
 
-The header uses `public/brand/tio-philo-emblem.png`; the hero uses `public/brand/tio-philo-emblem-dark.jpg`. Replace the intended file or update its import in `brand-logo.tsx`. The `large` prop chooses the asset using a ternary expression, similar to conditional template rendering in LWC. The current CSS clips the sources' surrounding page margins. A tightly cropped replacement could look cut off unless you also adjust `.brand-logo img` and the large variant's rules.
+The header uses `public/brand/tio-philo-emblem.png`; the hero uses `public/brand/tio-philo-emblem-dark-transparent.png`. The hero's outer background and inner light details are transparent. Replace the intended file or update its import in `brand-logo.tsx`. The `large` prop chooses the asset using a ternary expression, similar to conditional template rendering in LWC. The current CSS frames the sources' surrounding margins. A tightly cropped replacement could look cut off unless you also adjust `.brand-logo img` and the large variant's rules. Keep the hero's transparency and avoid reintroducing brightness filters or multiply blending there.
 
 For production updates, a new asset filename can help distinguish the new image from previously cached versions. Check both the small header version and the large hero version.
 

@@ -30,7 +30,7 @@ Open the local URL printed by Next.js, normally http://localhost:3000.
 - `src/app/page.tsx`: service, menu, packages, Love Wall, faith, and booking sections.
 - `src/app/globals.css`: layout, responsive styles, and brand colors.
 - `public/brand/tio-philo-emblem.png`: the uploaded logo, copied without alteration. CSS frames the emblem to hide the source image's outer margins.
-- `public/brand/tio-philo-emblem-dark.jpg`: the supplied reverse-color logo used by the large hero variant. The header uses the original logo with CSS blending and brightness to match the background.
+- `public/brand/tio-philo-emblem-dark-transparent.png`: the dark hero logo with transparent outer background and transparent light areas inside the badge. The original dark JPG is retained as a reference. The header uses the original logo with CSS blending and brightness.
 - `public/brand/tio-philo-love-wall.png`: transparent brown Love Wall illustration used inside the labeled Love Wall card. See [asset notes](docs/ASSET_NOTES.md) for its source and generation prompt.
 - `public/brand/tio-philo-facebook-qr.svg`: QR code linking directly to `https://www.facebook.com/tiophilo`; `site.facebookQr` selects this file.
 - `public/brand/tio-philo-flyer-v3.png`: the updated flyer, accessible from the homepage. The original flyer remains in `public/brand/tio-philo-flyer.png` as an earlier reference.
@@ -40,6 +40,8 @@ Open the local URL printed by Next.js, normally http://localhost:3000.
 1. Place photos in `public/photos/`, for example `coffee.jpg`, `milk-drinks.jpg`, and `refreshers.jpg`.
 2. In `src/lib/site.ts`, replace each `drinkPhotos` entry's `src: null` with the path, such as `src: "/photos/coffee.jpg"`.
 3. Set each photo's `alt` text to accurately describe the image. Keep `src: null` to retain a clean placeholder.
+
+Each photo entry's `illustration` selects a continuous-line drawing (`coffee`, `creamy`, or `refreshing`) while `src` is null. Edit these SVG paths in `src/components/drink-line-art.tsx` and their size/color in `globals.css`.
 
 The photos use `object-fit: cover`; landscape images around 1200 × 900 pixels work well. No stock or generated drink photos are presented as actual products.
 

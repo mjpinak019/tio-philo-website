@@ -1,6 +1,6 @@
 import Image from "next/image";
 import emblem from "../../public/brand/tio-philo-emblem.png";
-import darkEmblem from "../../public/brand/tio-philo-emblem-dark.jpg";
+import darkEmblem from "../../public/brand/tio-philo-emblem-dark-transparent.png";
 
 export function BrandLogo({ large = false }: { large?: boolean }) {
   return (
@@ -8,7 +8,7 @@ export function BrandLogo({ large = false }: { large?: boolean }) {
       <Image
         src={large ? darkEmblem : emblem}
         alt="Tio Philo Coffee Corner emblem"
-        sizes={large ? "(max-width: 700px) 425px, 570px" : "90px"}
+        sizes={large ? "(max-width: 700px) 353px, 470px" : "90px"}
         preload={large}
       />
     </span>

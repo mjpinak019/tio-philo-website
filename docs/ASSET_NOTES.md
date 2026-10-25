@@ -1,6 +1,18 @@
 # Brand and Facebook assets
 
-The header uses the original uploaded emblem with CSS brightness and multiply blending. The hero uses the user's original dark/reverse JPG. Both source logo images are copied without modification; `BrandLogo` chooses between them using its `large` boolean prop. CSS frames their surrounding margins.
+The header uses the original uploaded emblem with CSS brightness and multiply blending. The hero uses `public/brand/tio-philo-emblem-dark-transparent.png`, adapted from the user's original dark/reverse JPG using the built-in image-generation tool. Both the outside background and the light regions inside the badge are alpha transparent, so the site's background shows through the lettering, portrait, and border details. The dark brown artwork remains. The original JPG is retained as a reference.
+
+`BrandLogo` chooses between the header and hero assets using its `large` boolean prop. CSS frames their surrounding margins. The hero has normal blending and no brightness filter because its background is genuinely transparent.
+
+Final logo prompt (the second edit, applied after removing the outer background):
+
+> Edit target: the provided Tio Philo Coffee Corner dark reverse logo. Make ALL light ivory/cream regions genuinely alpha transparent, including the outer page background if any, lettering 'TIO PHILO' and 'COFFEE CORNER', all cream border lines, rays, face and shirt, cup details, cross and book. Preserve all dark coffee-brown badge artwork, shapes, typography, portrait identity and exact composition. This must be a single dark-brown ink cutout logo with fully transparent negative spaces both outside and INSIDE the emblem, so the website background shows through every formerly ivory area. Do not fill transparent areas with white, ivory, black or any other color. No redesign, no new text, no shadows, no added texture. Preserve the same canvas proportions and badge placement as the provided transparent PNG so it can replace that asset in an existing website layout. Output a transparent PNG.
+
+## Drink placeholder line art
+
+`src/components/drink-line-art.tsx` contains three original continuous SVG paths: a hot coffee cup, a creamy iced drink, and a citrus refresher. These are editable vector code, with no generated raster files. All share one viewBox and inherit their stroke color through `currentColor`. The drawing is decorative and hidden from screen readers; the visible caption identifies the drink category.
+
+`DrinkPhoto.illustration` selects the drawing while `src` is null. Adding a real photo automatically replaces the drawing. Styling is under `.photo-placeholder .drink-line-art` in `globals.css`.
 
 ## Love Wall illustration
 

@@ -38,8 +38,8 @@ em { font-weight: 400; }
 .brand-logo { display: block; position: relative; flex-shrink: 0; width: 49px; aspect-ratio: 614 / 715; overflow: hidden; mix-blend-mode: multiply; }
 .brand-logo img { position: absolute; width: 180%; max-width: none; height: auto; left: -42%; top: -46%; }
 .brand-logo:not(.brand-logo-large) img { filter: brightness(1.22); }
-.brand-logo-large { width: min(100%, 312px); aspect-ratio: 877 / 1010; }
-.brand-logo-large img { left: -42.4%; top: -47%; filter: brightness(1.08); }
+.brand-logo-large { width: min(100%, 312px); aspect-ratio: 900 / 1018; mix-blend-mode: normal; }
+.brand-logo-large img { width: 150%; left: -24.9%; top: -5.7%; filter: none; }
 .site-header { min-height: 112px; display: flex; align-items: center; justify-content: space-between; gap: 30px; border-bottom: 1px solid var(--line); }
 .wordmark { display: flex; align-items: center; gap: 13px; font: 400 29px/1 var(--font-garamond), Georgia, serif; letter-spacing: 1px; }
 .wordmark-caption { display: block; font: 400 12px/1.4 var(--font-inter), Arial, sans-serif; letter-spacing: 2.2px; margin-top: 8px; }
@@ -85,7 +85,7 @@ h2 em { color: var(--accent); }
 .photo-frame { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #eee3d1; }
 .photo-frame img { object-fit: cover; }
 .photo-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 11px; outline: 1px dashed #bfaa8a; outline-offset: -12px; background: #efe6d6; color: #806449; }
-.photo-placeholder svg { width: 34px; stroke: currentColor; stroke-width: 1; }
+.photo-placeholder .drink-line-art { display: block; width: 128px; height: 145px; max-width: 50%; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .photo-placeholder span { font-size: var(--text-small); letter-spacing: .3px; }
 .drink-photo:nth-child(2) .photo-placeholder { background: #eadbc6; }
 .drink-photo:nth-child(3) .photo-placeholder { background: #eee6d7; }
@@ -199,7 +199,7 @@ h2 em { color: var(--accent); }
   .photo-gallery { grid-template-columns: 1fr; gap: 24px; margin-top: 32px; }
   .photo-frame { aspect-ratio: 4 / 3; }
   .photo-placeholder { gap: 8px; outline-offset: -6px; padding: 12px; }
-  .photo-placeholder svg { width: 25px; }
+  .photo-placeholder .drink-line-art { width: 120px; height: 135px; }
   .photo-placeholder span { font-size: var(--text-small); text-align: center; line-height: 1.7; }
   .drink-photo figcaption { font-size: 17px; line-height: 1.2; padding-top: 10px; }
   .package-layout { grid-template-columns: 1fr; gap: 35px; margin-top: 30px; }
