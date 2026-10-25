@@ -1,8 +1,16 @@
 # Publishing Tio Philo with GitHub Pages
 
-GitHub stores the source in a repository; GitHub Pages serves the generated website. These are separate steps. This project is prepared for both, but a local successful build does not establish that a remote repository exists or that the website is live.
+GitHub stores the source in a repository; GitHub Pages serves the generated website. This project is published with both:
+
+- **Public website:** https://mjpinak019.github.io/tio-philo-website/
+- **Public repository:** https://github.com/mjpinak019/tio-philo-website
+- **Deployment history:** [Deploy Tio Philo to GitHub Pages](https://github.com/mjpinak019/tio-philo-website/actions/workflows/deploy-pages.yml)
+
+Initial publication used Git and Git Credential Manager to authenticate and push the source. GitHub Pages uses the **GitHub Actions** publishing source. The first build and deployment completed successfully. For subsequent changes, check the matching commit's workflow result; a successful local build alone does not publish an update.
 
 ## Initial publication
+
+These setup steps are already complete for this repository. Keep them as a reference if you publish a separate copy later.
 
 1. Authenticate the GitHub account that should own the site.
 2. Create a **public** repository, normally `tio-philo-website`, with `main` as its default branch. If using an existing repository, review its contents and settings first.
@@ -11,9 +19,9 @@ GitHub stores the source in a repository; GitHub Pages serves the generated webs
 5. Open **Actions → Deploy Tio Philo to GitHub Pages**. A push to `main` triggers it automatically; it can also be started with **Run workflow** after Pages is configured.
 6. Wait for both `build` and `deploy` to succeed. Use the actual URL returned by the deployment and verify the page, logo, fonts, flyer, and contact links.
 
-For a project repository, the usual URL pattern is `https://ACCOUNT.github.io/REPOSITORY/`. This is a pattern, not a confirmed deployment address for this project. GitHub Pages settings and the successful deployment supply the real URL.
+For a project repository, the usual URL pattern is `https://ACCOUNT.github.io/REPOSITORY/`. Here, the account is `mjpinak019` and the repository is `tio-philo-website`, producing the public website address above.
 
-The account needs permission to create/push the repository and administer its Pages settings. A connected service must support the necessary write operations; a read-only connection cannot publish the site. Git and GitHub CLI were not installed in the inspected local environment, so authentication and an authorized publishing tool must be available before the source can be pushed from here.
+The account needs permission to create/push the repository and administer its Pages settings. Git is installed and Git Credential Manager handles local GitHub authentication. GitHub CLI (`gh`) is optional and was not required for this publication. Credentials are not stored in project source files.
 
 ## What the workflow does
 
@@ -81,6 +89,22 @@ It skips external URLs, fragments, telephone links, and data URLs. It does not p
 ## Updating the live site later
 
 Edit the normal source files, verify the change, and push a commit to `main`. The workflow builds and publishes that commit. Check the workflow result before announcing the update as live.
+
+For example, after editing the menu in `src/lib/site.ts`:
+
+```powershell
+npm.cmd run lint
+npm.cmd run build:pages
+npm.cmd run verify:pages
+git diff
+git add src/lib/site.ts
+git commit -m "Update coffee menu"
+git push origin main
+```
+
+Check each command's result before moving to the next. Stage the specific files you changed; the `git add` example only includes the menu data file. GitHub rebuilds with the correct repository URL prefix. Open the deployment history link above and wait for both jobs to succeed, then check the public site.
+
+In Salesforce terms, saving a file is like editing your local LWC source, committing records a version, and pushing sends it to the shared repository. GitHub Actions then builds and deploys the website, similar to an automated release pipeline. A local save alone does not change the public site.
 
 Do not edit the generated `out/` directory as your source of truth. It is regenerated from `src/` and `public/` on the next build.
 

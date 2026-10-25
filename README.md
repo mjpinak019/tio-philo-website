@@ -2,6 +2,10 @@
 
 A simple responsive event coffee website built with Next.js App Router and TypeScript. Branding and business details follow the supplied promotional flyer and PowerPoint presentation.
 
+- **Public website:** https://mjpinak019.github.io/tio-philo-website/
+- **Source repository:** https://github.com/mjpinak019/tio-philo-website
+- **Deployment status:** [GitHub Actions](https://github.com/mjpinak019/tio-philo-website/actions/workflows/deploy-pages.yml)
+
 ## Developer documentation
 
 New to Node.js, TypeScript, React, or Next.js? These guides explain this build using Apex, LWC, and Salesforce admin comparisons:
@@ -58,7 +62,7 @@ Read the installed guides in `node_modules/next/dist/docs/` before changing Next
 
 ## GitHub Pages
 
-The project includes `.github/workflows/deploy-pages.yml` for GitHub Pages. After the source is pushed to a public repository and Pages is configured to use **GitHub Actions**, pushes to `main` build and deploy the website automatically.
+The public repository is configured to publish through **GitHub Actions** using `.github/workflows/deploy-pages.yml`. Pushes to `main` build and deploy the website automatically.
 
 The workflow uses Node.js 24, installs locked dependencies with `npm ci`, runs `npm run build:pages`, verifies the export, and publishes `out/`. It obtains the repository URL prefix from GitHub Pages automatically, so the logo, fonts, flyer, and future drink photos work under a project URL.
 
@@ -69,4 +73,4 @@ npm run build:pages
 npm run verify:pages
 ```
 
-See [deployment instructions](docs/DEPLOYMENT.md) for testing a repository URL prefix and distinguishing a prepared build from a confirmed live deployment.
+See [deployment instructions](docs/DEPLOYMENT.md) for publishing updates, testing a repository URL prefix, and checking deployment results.
