@@ -1,7 +1,9 @@
+import Image from "next/image";
 import { BrandLogo } from "@/components/brand-logo";
 import { PhotoPlaceholder } from "@/components/photo-placeholder";
 import { publicAssetPath } from "@/lib/paths";
 import { addOns, drinkPhotos, flavors, packages, site, verses } from "@/lib/site";
+import loveWall from "../../public/brand/tio-philo-love-wall.png";
 
 function Arrow() {
   return <span aria-hidden="true">↗</span>;
@@ -64,6 +66,10 @@ export default function Home() {
               Enjoy quality coffee beans, premium syrups and sauces, and your
               choice of creamy Oatside or rich full-cream milk.
             </p>
+            <p>
+              A <strong>free Love Wall with every package</strong> gives your
+              guests a place to share heartfelt notes and memories to treasure.
+            </p>
             <div className="service-details">
               <span><strong>12 oz</strong> iced drinks</span>
               <span><strong>8 oz</strong> hot drinks</span>
@@ -102,7 +108,7 @@ export default function Home() {
                 <p className="eyebrow">OUR PACKAGES</p>
                 <h2 id="packages-heading">Good coffee.<br /><em>A celebration to remember.</em></h2>
               </div>
-              <p>From 50 to 250 cups.<br />A free Love Wall with every package.</p>
+              <p>From 50 to 250 cups.<br /><strong>A free Love Wall with every package.</strong></p>
             </div>
             <div className="package-layout">
               <table className="package-table">
@@ -132,16 +138,20 @@ export default function Home() {
         </section>
 
         <section className="love-section wrap section-space" aria-labelledby="love-heading">
-          <div className="love-note" aria-hidden="true">
-            <span className="note-heart">♡</span>
-            <p>A little note.<br />A lot of love.</p>
+          <figure className="love-note">
+            <figcaption>
+              <span className="eyebrow">FREE WITH EVERY PACKAGE</span>
+              <h3>The Love Wall</h3>
+            </figcaption>
+            <Image src={loveWall} alt="A Love Wall easel surrounded by flowers beside a table with pens for guests’ notes" sizes="(max-width: 700px) 90vw, 460px" />
+            <p>A little note. A lot of love.</p>
             <span className="note-signature">A keepsake from your special day</span>
-          </div>
+          </figure>
           <div className="love-copy">
             <p className="eyebrow">COMPLIMENTARY WITH EVERY PACKAGE</p>
             <h2 id="love-heading">More than coffee.<br /><em>A little extra love.</em></h2>
             <p>
-              Our <b>free Love Wall</b> gives your guests a place to leave heartfelt
+              Our <strong>free Love Wall</strong> gives your guests a place to leave heartfelt
               notes, sweet messages, and words of encouragement.
             </p>
             <p>
@@ -184,6 +194,10 @@ export default function Home() {
                 <p className="facebook-label">You can also message our <strong>{site.facebookName}</strong> Facebook page.</p>
               )}
               <p className="contact-location">Free transportation to all areas in Cavite.</p>
+              <a className="facebook-qr" href={site.facebookUrl} target="_blank" rel="noopener noreferrer">
+                <Image src={publicAssetPath(site.facebookQr)} width={132} height={132} alt="QR code linking directly to the TIO PHILO Facebook page" unoptimized />
+                <span><strong>Let’s connect on Facebook</strong><span>Scan the code or tap to visit<br />our TIO PHILO page <Arrow /></span></span>
+              </a>
             </div>
           </div>
         </section>

@@ -30,6 +30,9 @@ Open the local URL printed by Next.js, normally http://localhost:3000.
 - `src/app/page.tsx`: service, menu, packages, Love Wall, faith, and booking sections.
 - `src/app/globals.css`: layout, responsive styles, and brand colors.
 - `public/brand/tio-philo-emblem.png`: the uploaded logo, copied without alteration. CSS frames the emblem to hide the source image's outer margins.
+- `public/brand/tio-philo-emblem-dark.jpg`: the supplied reverse-color logo used by the large hero variant. The header uses the original logo with CSS blending and brightness to match the background.
+- `public/brand/tio-philo-love-wall.png`: transparent brown Love Wall illustration used inside the labeled Love Wall card. See [asset notes](docs/ASSET_NOTES.md) for its source and generation prompt.
+- `public/brand/tio-philo-facebook-qr.svg`: QR code linking directly to `https://www.facebook.com/tiophilo`; `site.facebookQr` selects this file.
 - `public/brand/tio-philo-flyer-v3.png`: the updated flyer, accessible from the homepage. The original flyer remains in `public/brand/tio-philo-flyer.png` as an earlier reference.
 
 ## Add actual drink photos
@@ -49,7 +52,7 @@ The photos use `object-fit: cover`; landscape images around 1200 × 900 pixels w
 - Fonts are stored in `src/assets/fonts` and served locally using `next/font/local`, with their OFL licenses. Builds and visitors do not need a Google Fonts connection.
 - `scripts/prepare-brand-fonts.ps1` can redownload the fonts and licenses if needed.
 
-The official Facebook URL was not supplied. Add it to `site.facebookUrl` to turn the Facebook mention into a link. Both phone numbers are working telephone links. Event booking is handled directly with the business; this site does not take payments or submit bookings.
+The official Facebook page is `https://www.facebook.com/tiophilo`. The contact section includes a clickable QR code and a direct Facebook link. Update both `site.facebookUrl` and the QR graphic if the destination changes. Both phone numbers are working telephone links. Event booking is handled directly with the business; this site does not take payments or submit bookings.
 
 ## Production check
 

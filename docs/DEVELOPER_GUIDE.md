@@ -67,7 +67,7 @@ flowchart TD
     Data["src/lib/site.ts: content and prices"] --> Page["src/app/page.tsx: Home"]
     Page --> Logo["BrandLogo"]
     Page --> Photos["PhotoPlaceholder"]
-    Page --> Branch["CoffeeBranch"]
+    Page --> LoveWall["Love Wall illustration and Facebook QR"]
     Layout["src/app/layout.tsx: RootLayout"] --> Wrapped["Wrap page as children"]
     Page --> Wrapped
     Fonts["Local font files"] --> Layout
@@ -329,7 +329,7 @@ Actual pattern, shortened to show the decision:
 )}
 ```
 
-The ternary operator means `condition ? resultIfTrue : resultIfFalse`. An empty string is falsy, so the current empty Facebook URL displays text instead of a link.
+The ternary operator means `condition ? resultIfTrue : resultIfFalse`. An empty string is falsy and would display text instead of a link. The current Facebook URL is populated, so the page renders the link.
 
 LWC teaching equivalent:
 

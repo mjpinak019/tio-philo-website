@@ -9,9 +9,9 @@ export const site = {
     { label: "0976-416-1770", href: "tel:+639764161770" },
     { label: "0967-099-1001", href: "tel:+639670991001" },
   ],
-  // Add the official Facebook page URL when available.
-  facebookUrl: "",
+  facebookUrl: "https://www.facebook.com/tiophilo",
   facebookName: "TIO PHILO",
+  facebookQr: "/brand/tio-philo-facebook-qr.svg",
   flyer: "/brand/tio-philo-flyer-v3.png",
 };
 

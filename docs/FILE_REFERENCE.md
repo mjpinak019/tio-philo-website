@@ -32,6 +32,10 @@ tio-philo-website/
 ├── public/
 │   ├── brand/
 │   │   ├── tio-philo-emblem.png
+│   │   ├── tio-philo-emblem-dark.jpg
+│   │   ├── tio-philo-love-wall.png
+│   │   ├── tio-philo-facebook-qr.svg
+│   │   ├── tio-philo-facebook-qr.png
 │   │   ├── tio-philo-flyer.png
 │   │   └── tio-philo-flyer-v3.png
 │   ├── photos/.gitkeep
@@ -48,7 +52,8 @@ tio-philo-website/
 ├── docs/
 │   ├── DEVELOPER_GUIDE.md
 │   ├── FILE_REFERENCE.md
-│   └── EDITING_PLAYBOOK.md
+│   ├── EDITING_PLAYBOOK.md
+│   ├── ASSET_NOTES.md
 │   └── DEPLOYMENT.md
 ├── package.json
 ├── package-lock.json
@@ -93,8 +98,9 @@ Salesforce comparison: it serves a similar organizational purpose to Custom Meta
 | `description` | Search/browser metadata description | Does not automatically replace the hero paragraph |
 | `phones[].label` | Phone number displayed to people | Human-friendly formatting |
 | `phones[].href` | `tel:` URL activated by a click | Uses an international number, such as `tel:+639764161770` |
-| `facebookUrl` | Official Facebook link | An empty string currently selects the text-only rendering branch |
+| `facebookUrl` | Official Facebook link | Currently `https://www.facebook.com/tiophilo`; also used by the clickable QR card |
 | `facebookName` | Facebook page name displayed in copy | Not a lookup or automatic page search |
+| `facebookQr` | QR graphic URL | Direct-to-Facebook SVG; keep the encoded URL consistent with `facebookUrl` |
 | `flyer` | Public flyer path | Used by the hero's “View our flyer” link |
 
 ### Collection fields
@@ -121,7 +127,7 @@ export type DrinkPhoto = {
 
 ## 3. `src/app/page.tsx`: homepage
 
-**Inputs:** the three component imports, six data exports from `site.ts`, and `publicAssetPath` from `paths.ts`. **Output:** the page at `/`. **Data writes/network calls:** none in this module.
+**Inputs:** `BrandLogo`, `PhotoPlaceholder`, Next.js `Image`, the imported Love Wall illustration, six data exports from `site.ts`, and `publicAssetPath` from `paths.ts`. **Output:** the page at `/`. **Data writes/network calls:** none in this module.
 
 Next.js recognizes `page.tsx` as a route file. The function name `Home` is descriptive; the filename and directory determine the URL.
 
@@ -147,9 +153,9 @@ Next.js recognizes `page.tsx` as a route file. The function name `Home` is descr
 | Service | `id="service"` | Event service copy, milk choices, hot/iced sizes |
 | Flavors | `id="flavors"` | Menu categories and three photo components |
 | Packages | `id="packages"` | Package table, add-ons, contact link |
-| Love Wall | `.love-section` | Decorative note plus explanation of the complimentary keepsake |
+| Love Wall | `.love-section` | Labeled card with a transparent illustration, plus bold complimentary Love Wall copy |
 | Faith | `.faith-section`, `id="faith-heading"` | Community message and Isaiah/Romans quotations from the updated flyer |
-| Contact | `id="contact"` | Booking instructions, two phone links, conditional Facebook link/text |
+| Contact | `id="contact"` | Booking instructions, two phone links, Facebook link, and clickable QR code |
 | Footer | `.site-footer` | Copyright text, tagline, link back to hero |
 
 The header and footer currently live in `page.tsx`, not the root layout. If you add a second page, they will not automatically appear there.
@@ -242,14 +248,14 @@ Next.js recognizes this export and creates head information. `Metadata` is a typ
 | `large = false` | Default to the small header logo |
 | `large?: boolean` | The caller may omit this input |
 | `` `brand-logo${large ? " brand-logo-large" : ""}` `` | Always apply the base class and conditionally add the larger one |
-| `src={emblem}` | Pass imported image data to the framework component |
+| `src={large ? darkEmblem : emblem}` | Choose the supplied dark hero logo or the original header logo based on the boolean prop |
 | `alt="..."` | Text alternative identifying the logo |
 | `sizes={large ? ... : ...}` | Suggest display widths to help the browser choose an image resource |
 | `preload={large}` | Request early loading for the large hero logo |
 
 `sizes` does not directly set the visible size. CSS does. These hints are approximate; if the layout changes significantly, review them for efficient loading.
 
-The source PNG includes wide surrounding margins. `.brand-logo` clips the rendered image, and `.brand-logo img` scales/positions it to show the emblem. The original uploaded file remains unchanged. A replacement logo with different margins may need different CSS framing.
+The PNG and dark JPG include wide surrounding margins. `.brand-logo` clips the rendered image, and `.brand-logo img` scales/positions it to show the emblem. The large variant uses its own aspect ratio and positioning for the JPG. Brightness filters and `mix-blend-mode: multiply` blend the light image background into the page. Both source files remain unchanged. A replacement logo with different margins may need different CSS framing.
 
 ## 6. `src/components/photo-placeholder.tsx`: photo or placeholder
 
@@ -277,7 +283,7 @@ When `photo.src` is `null` or an empty string, a small inline camera SVG and “
 
 ## 7. `src/components/coffee-branch.tsx`: decorative vector
 
-**Function:** `CoffeeBranch()`. **Inputs:** none. **Output:** an inline SVG branch used behind the hero logo.
+**Function:** `CoffeeBranch()`. **Inputs:** none. **Output:** an inline SVG branch. The user removed its import and tag from the homepage; this component remains available for reuse.
 
 | SVG item | Meaning |
 | --- | --- |
@@ -351,18 +357,19 @@ Some decorative shades are literal colors in later rules. Changing one root toke
 | `.drink-photo`, `figcaption`, `:nth-child(...)` rules | Photo blocks, captions, alternate placeholder backgrounds |
 | `.photo-frame`, `.photo-frame img` | Frame dimensions and image crop behavior |
 | `.photo-placeholder`, SVG/span rules | Empty-photo frame, camera icon, and label |
-| `.packages-section`, `.package-layout` | Tinted section and pricing/add-on columns |
+| `.packages-section`, `.package-layout` | Dark brown section, scoped cream/gold color variables, and pricing/add-on columns |
 | `.package-table`, descendant header/cell/span rules | Price alignment, borders, numeric appearance |
 | `.package-extras`, descendant heading/list/button rules | Add-on details and event-planning link |
 | `.package-note` | Supporting transportation note |
 | `.love-section`, `.love-note` | Love Wall columns and decorative note frame |
-| `.note-heart`, `.love-note p`, `.note-signature` | Heart, note lettering, keepsake caption |
+| `.love-note h3`, `.love-note img`, `.love-note > p`, `.note-signature` | Love Wall title, responsive illustration, note lettering, keepsake caption |
 | `.love-copy` paragraph rule | Love Wall explanation text |
 | `.faith-section`, `.faith-inner`, `.faith-heart` | Tinted faith section, spacing, and decorative heart |
 | `.verse-grid`, `.verse`, blockquote/caption/cite rules | Responsive verse columns, quotation text, dividers, and references |
 | `.contact-section`, `.contact-inner`, descendants | Dark contact area, responsive columns, heading and copy colors |
 | `.phone-link`, hover/span rules | Phone-number links and arrow sizing |
 | `.facebook-label`, `.facebook-link`, strong rule | Facebook fallback text or link |
+| `.facebook-qr` and child rules | Clickable QR card with white-backed code, explanatory text, and mobile sizing |
 | `.contact-location` | Cavite transportation note |
 | `.site-footer`, child rules | Footer alignment, tagline, and back-to-top link |
 
@@ -524,7 +531,7 @@ If an editor reports missing route/type helpers after a fresh checkout, run the 
 
 The ignore file includes dependencies, `.next`, other build outputs, coverage, logs, environment files, local Vercel state, TypeScript build caches, and `next-env.d.ts`. Negative patterns beginning with `!` keep selected Yarn support paths eligible for tracking.
 
-Ignoring a file does not delete it, stop a running process, or remove it from Git if it was already tracked. The current inspected directory did not contain a `.git` directory; the ignore file alone does not create a repository or commit history.
+Ignoring a file does not delete it, stop a running process, or remove it from Git if it was already tracked. This project now has a Git repository and a public GitHub remote; `.gitignore` controls which new files are eligible for tracking.
 
 ## 16. `scripts/prepare-brand-fonts.ps1`: optional font download helper
 
@@ -552,6 +559,10 @@ It declares no custom functions. Its commands work in sequence:
 | File | Used by | Function |
 | --- | --- | --- |
 | `public/brand/tio-philo-emblem.png` | `BrandLogo` static import | The uploaded 1102 × 1427 logo image, unchanged |
+| `public/brand/tio-philo-emblem-dark.jpg` | Large `BrandLogo` variant | The uploaded 1578 × 2028 dark/reverse logo, unchanged |
+| `public/brand/tio-philo-love-wall.png` | Homepage static image import | 1340 × 1174 transparent illustration adapted from the supplied Love Wall graphic; see [asset notes](ASSET_NOTES.md) |
+| `public/brand/tio-philo-facebook-qr.svg` | `site.facebookQr` | Functional QR generated for the confirmed Facebook URL; use a QR encoder to change its destination |
+| `public/brand/tio-philo-facebook-qr.png` | Reference only | Supplied QR screenshot, unchanged; encodes an intermediary QR-service address |
 | `public/brand/tio-philo-flyer.png` | Earlier reference | The earlier uploaded 1122 × 1402 promotional flyer, unchanged |
 | `public/brand/tio-philo-flyer-v3.png` | `site.flyer` URL | The updated 1055 × 1491 flyer with the brand message and verses, unchanged |
 | `public/coffee-icon.svg` | Root metadata | Small coffee-cup browser icon in brand colors |

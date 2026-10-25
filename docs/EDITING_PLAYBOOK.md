@@ -6,7 +6,7 @@ For public hosting and the separate static build profile, see [GitHub Pages depl
 
 The recipes below describe changes you can make. They have not been applied to the website just by appearing in this document. Sample prices and URLs are teaching examples, not new business facts.
 
-Before experimenting, keep a copy of the file you are about to change or use source control once configured. The inspected workspace did not have a Git repository initialized, so do not assume there is already a commit you can restore. Make one small change at a time and restore practice prices/copy before publishing.
+Before experimenting, use `git status` and `git diff` to check your existing work. The project has a Git repository and a public GitHub remote. Make one small change at a time and restore practice prices/copy before publishing.
 
 ## 1. Open the project and preview it
 
@@ -47,7 +47,9 @@ Starting the preview does not deploy the project, register a domain, connect Sal
 | Package price or cup count | [site.ts](../src/lib/site.ts) | Keep numeric values; maintain unique cup-count keys |
 | Drink names or categories | [site.ts](../src/lib/site.ts) | Keep names/categories unique within their lists |
 | Phone number | [site.ts](../src/lib/site.ts) | Update display label and telephone URL |
-| Official Facebook page | [site.ts](../src/lib/site.ts) | Fill in `facebookUrl` |
+| Official Facebook page | [site.ts](../src/lib/site.ts) | Update `facebookUrl` and regenerate the QR graphic with the same destination |
+| Facebook QR code | `public/brand/tio-philo-facebook-qr.svg` | `site.facebookQr` selects it; changing the link alone does not change the encoded QR data |
+| Love Wall illustration | `public/brand/tio-philo-love-wall.png` | Imported in `page.tsx`; sizing and card appearance are in `.love-note` CSS rules |
 | Real drink photo | `public/photos/` and [site.ts](../src/lib/site.ts) | Copy the file and set `src`/`alt` |
 | Business name everywhere | [site.ts](../src/lib/site.ts), [page.tsx](../src/app/page.tsx), logo assets | Some visible copy and logo text are not generated from `site.name` |
 | Search/browser description | [site.ts](../src/lib/site.ts) | `layout.tsx` reads it for metadata |
@@ -128,15 +130,15 @@ Landscape photos around 1200 × 900 pixels work well with the desktop frames. Mo
 
 Do not use a local Downloads path, a Salesforce Static Resource import, or a remote image URL without the additional configuration those different sources require. This recipe uses local public files only.
 
-## 6. Enable the official Facebook link
+## 6. Update the official Facebook link and QR
 
-In `site.ts`, replace the empty string with the actual verified URL:
+In `site.ts`, the confirmed address is:
 
 ```ts
-facebookUrl: "https://www.facebook.com/your-official-page",
+facebookUrl: "https://www.facebook.com/tiophilo",
 ```
 
-The URL above is a placeholder; replace it with the real page address. The existing ternary automatically switches the contact area from plain text to a clickable link.
+If the official address changes, update this value and regenerate the QR SVG for the same URL using the command in [asset notes](ASSET_NOTES.md). The existing ternary chooses a clickable link when the value is populated. The QR card also uses this URL when tapped, but the image contains independently encoded data, so update both.
 
 `facebookName` only controls displayed text. It does not search Facebook or verify page ownership.
 
@@ -176,7 +178,7 @@ Edit the `<h1>` in `page.tsx`. Keep the `id="hero-heading"` unless you also upda
 
 ### Logo
 
-Replace `public/brand/tio-philo-emblem.png` with the intended logo or update its import in `brand-logo.tsx` to a new filename. The current CSS clips the source's surrounding page margins. A tightly cropped replacement could look cut off unless you also adjust `.brand-logo img`.
+The header uses `public/brand/tio-philo-emblem.png`; the hero uses `public/brand/tio-philo-emblem-dark.jpg`. Replace the intended file or update its import in `brand-logo.tsx`. The `large` prop chooses the asset using a ternary expression, similar to conditional template rendering in LWC. The current CSS clips the sources' surrounding page margins. A tightly cropped replacement could look cut off unless you also adjust `.brand-logo img` and the large variant's rules.
 
 For production updates, a new asset filename can help distinguish the new image from previously cached versions. Check both the small header version and the large hero version.
 
