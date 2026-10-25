@@ -2,7 +2,7 @@
 
 GitHub stores the source in a repository; GitHub Pages serves the generated website. This project is published with both:
 
-- **Public website:** https://mjpinak019.github.io/tio-philo-website/
+- **Public website:** https://tiophilo.site/
 - **Public repository:** https://github.com/mjpinak019/tio-philo-website
 - **Deployment history:** [Deploy Tio Philo to GitHub Pages](https://github.com/mjpinak019/tio-philo-website/actions/workflows/deploy-pages.yml)
 
@@ -19,7 +19,7 @@ These setup steps are already complete for this repository. Keep them as a refer
 5. Open **Actions → Deploy Tio Philo to GitHub Pages**. A push to `main` triggers it automatically; it can also be started with **Run workflow** after Pages is configured.
 6. Wait for both `build` and `deploy` to succeed. Use the actual URL returned by the deployment and verify the page, logo, fonts, flyer, and contact links.
 
-For a project repository, the usual URL pattern is `https://ACCOUNT.github.io/REPOSITORY/`. Here, the account is `mjpinak019` and the repository is `tio-philo-website`, producing the public website address above.
+For a project repository, the usual URL pattern is `https://ACCOUNT.github.io/REPOSITORY/`. The original address was `https://mjpinak019.github.io/tio-philo-website/`. GitHub Pages now has the custom domain `tiophilo.site`, which serves the website directly at its root.
 
 The account needs permission to create/push the repository and administer its Pages settings. Git is installed and Git Credential Manager handles local GitHub authentication. GitHub CLI (`gh`) is optional and was not required for this publication. Credentials are not stored in project source files.
 
@@ -73,6 +73,16 @@ Remove-Item Env:NEXT_PUBLIC_BASE_PATH
 Check both command results; stop and fix a failed build before relying on validation output. The verification command must receive the same prefix as the build. Run root-profile commands without that environment variable when testing the normal local URL.
 
 `NEXT_PUBLIC_BASE_PATH` is public deployment configuration, not a credential. Its value is compiled into the build, so changing the repository/custom-domain path requires rebuilding.
+
+### Custom domain: tiophilo.site
+
+The custom domain uses an empty `basePath`. The existing workflow obtains this value from GitHub Pages automatically; no domain needs to be hard-coded in the application.
+
+Changing **Settings → Pages → Custom domain** does not rewrite an already generated Next.js build. After changing the domain, open **Actions → Deploy Tio Philo to GitHub Pages → Run workflow**, choose `main`, and wait for the build and deployment to finish. A normal push to `main` also triggers the rebuild.
+
+The initial domain switch showed HTML but missing styling and images because the old build still requested `/tio-philo-website/_next/...`, which returned 404. On the custom domain, the correct path is `/_next/...`. Rebuilding with the domain's current configuration fixes these compiled references, including the logo, fonts, and flyer.
+
+In Salesforce terms, updating the domain is like changing the site's address; the generated website is still a previously built release artifact. The deployment pipeline must produce a new artifact containing the correct resource URLs.
 
 ## Asset verification
 

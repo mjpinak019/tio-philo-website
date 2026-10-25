@@ -2,7 +2,7 @@
 
 A simple responsive event coffee website built with Next.js App Router and TypeScript. Branding and business details follow the supplied promotional flyer and PowerPoint presentation.
 
-- **Public website:** https://mjpinak019.github.io/tio-philo-website/
+- **Public website:** https://tiophilo.site/
 - **Source repository:** https://github.com/mjpinak019/tio-philo-website
 - **Deployment status:** [GitHub Actions](https://github.com/mjpinak019/tio-philo-website/actions/workflows/deploy-pages.yml)
 
@@ -65,6 +65,8 @@ Read the installed guides in `node_modules/next/dist/docs/` before changing Next
 The public repository is configured to publish through **GitHub Actions** using `.github/workflows/deploy-pages.yml`. Pushes to `main` build and deploy the website automatically.
 
 The workflow uses Node.js 24, installs locked dependencies with `npm ci`, runs `npm run build:pages`, verifies the export, and publishes `out/`. It obtains the repository URL prefix from GitHub Pages automatically, so the logo, fonts, flyer, and future drink photos work under a project URL.
+
+The custom domain `tiophilo.site` serves the site at `/`, with no repository prefix. After changing a custom domain in GitHub Pages settings, run the deployment workflow again so the compiled asset paths match the new address.
 
 For a local static build at the domain root:
 
