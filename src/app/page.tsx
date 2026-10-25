@@ -1,5 +1,4 @@
 import { BrandLogo } from "@/components/brand-logo";
-import { CoffeeBranch } from "@/components/coffee-branch";
 import { PhotoPlaceholder } from "@/components/photo-placeholder";
 import { publicAssetPath } from "@/lib/paths";
 import { addOns, drinkPhotos, flavors, packages, site, verses } from "@/lib/site";
@@ -45,7 +44,6 @@ export default function Home() {
             </div>
           </div>
           <div className="hero-emblem">
-            <CoffeeBranch />
             <BrandLogo large />
             <p className="brand-message"><em>{site.tagline}</em></p>
           </div>
