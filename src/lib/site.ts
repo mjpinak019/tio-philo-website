@@ -7,7 +7,7 @@ export const site = {
     "Where Every Cup Brings Hearts Together. Make every celebration Brew-tiful with Tio Philo Coffee Corner, event coffee packages, and a free Love Wall with every package.",
   phones: [
     { label: "0976-416-1770", href: "tel:+639764161770" },
-    { label: "0967-099-1001", href: "tel:+639760991001" },
+    { label: "0976-099-1001", href: "tel:+639760991001" },
   ],
   facebookUrl: "https://www.facebook.com/tiophilo",
   facebookName: "TIO PHILO",
