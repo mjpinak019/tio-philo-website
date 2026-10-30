@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // LARO has its own build and checks.
+    "laro/**",
   ]),
 ]);
 
