@@ -170,7 +170,7 @@ The SVG artwork is in `src/components/seasonal-decorations.tsx`. Its three layou
 To change the appearance, find the seasonal block near the end of `globals.css`:
 
 - Change the `.seasonal-decor` color or individual SVG opacity to adjust visibility.
-- Change the `12s`, `9s`, or `10s` animation durations to adjust speed; longer times are slower.
+- Change the `8s`, `6s`, or `7s` animation durations to adjust speed; longer times are slower.
 - Change the small rotation or translation values in `@keyframes` to adjust movement. Keep movement away from text and controls.
 - Keep the reduced-motion media rules so visitors who request less motion receive a static page.
 

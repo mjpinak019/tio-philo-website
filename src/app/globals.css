@@ -235,48 +235,49 @@ h2 em { color: var(--accent); }
 /* Seasonal line art stays behind content and never receives pointer events. */
 .seasonal-stage { position: relative; isolation: isolate; }
 .seasonal-decor { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; user-select: none; color: #9a7850; }
-.seasonal-decor svg { position: absolute; display: block; stroke: currentColor; stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; }
-.seasonal-pine { width: 210px; height: auto; left: -48px; bottom: -30px; opacity: .17; }
-.seasonal-stars { width: 160px; height: auto; right: 14px; bottom: 14px; opacity: .32; }
-.seasonal-hanging { width: 105px; height: auto; right: 5px; top: -4px; opacity: .2; }
+.seasonal-decor svg { position: absolute; display: block; stroke: currentColor; stroke-width: 1.55; stroke-linecap: round; stroke-linejoin: round; }
+.seasonal-pine { width: 280px; height: auto; left: -48px; bottom: -30px; opacity: .42; }
+.seasonal-stars { width: 200px; height: auto; right: 14px; bottom: 14px; opacity: .68; }
+.seasonal-hanging { width: 128px; height: auto; right: -4px; top: -12px; opacity: .6; }
+.seasonal-ornament circle { fill: currentColor; fill-opacity: .08; }
 .seasonal-ornament { transform-box: fill-box; transform-origin: center top; }
-.seasonal-star { opacity: .55; }
-.seasonal-decor-pine .seasonal-pine { left: auto; right: -24px; top: 6px; bottom: auto; transform: rotate(90deg); opacity: .13; }
+.seasonal-star { opacity: .8; }
+.seasonal-decor-pine .seasonal-pine { left: auto; right: -24px; top: 6px; bottom: auto; transform: rotate(90deg); opacity: .35; }
 .seasonal-decor-pine .seasonal-stars { right: auto; left: -12px; bottom: 22px; }
 .packages-section > .seasonal-decor, .contact-section > .seasonal-decor { color: #e1c69f; }
-.seasonal-decor-ornaments .seasonal-pine { width: 240px; left: auto; right: -48px; bottom: -45px; opacity: .12; }
-.seasonal-decor-ornaments .seasonal-stars { left: 10px; right: auto; bottom: 20px; opacity: .24; }
-.seasonal-decor-ornaments .seasonal-hanging { right: max(18px, calc((100% - 1280px) / 2)); width: 90px; opacity: .14; }
+.seasonal-decor-ornaments .seasonal-pine { width: 290px; left: auto; right: -48px; bottom: -45px; opacity: .34; }
+.seasonal-decor-ornaments .seasonal-stars { left: 10px; right: auto; bottom: 20px; opacity: .6; }
+.seasonal-decor-ornaments .seasonal-hanging { right: max(18px, calc((100% - 1280px) / 2)); width: 120px; opacity: .5; }
 
 @keyframes ornament-sway {
-  0%, 100% { transform: rotate(-2deg); }
-  50% { transform: rotate(2deg); }
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
 }
 @keyframes star-glow {
-  0%, 100% { opacity: .4; }
-  50% { opacity: .85; }
+  0%, 100% { opacity: .5; }
+  50% { opacity: 1; }
 }
 @keyframes drink-float {
-  0%, 100% { transform: translateY(2px); }
-  50% { transform: translateY(-2px); }
+  0%, 100% { transform: translateY(4px); }
+  50% { transform: translateY(-4px); }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .seasonal-ornament { animation: ornament-sway 12s ease-in-out infinite; }
-  .seasonal-ornament-late { animation-duration: 15s; animation-delay: -5s; }
-  .seasonal-star { animation: star-glow 9s ease-in-out infinite; }
-  .seasonal-star-late { animation-duration: 12s; animation-delay: -4s; }
-  .seasonal-star-last { animation-duration: 14s; animation-delay: -8s; }
-  .photo-placeholder .drink-line-art { animation: drink-float 10s ease-in-out infinite; }
+  .seasonal-ornament { animation: ornament-sway 8s ease-in-out infinite; }
+  .seasonal-ornament-late { animation-duration: 11s; animation-delay: -5s; }
+  .seasonal-star { animation: star-glow 6s ease-in-out infinite; }
+  .seasonal-star-late { animation-duration: 8s; animation-delay: -4s; }
+  .seasonal-star-last { animation-duration: 10s; animation-delay: -8s; }
+  .photo-placeholder .drink-line-art { animation: drink-float 7s ease-in-out infinite; }
   .drink-photo:nth-child(2) .drink-line-art { animation-delay: -3s; }
   .drink-photo:nth-child(3) .drink-line-art { animation-delay: -6s; }
 }
 @media (max-width: 700px) {
-  .seasonal-pine { width: 150px; left: -36px; bottom: -22px; opacity: .12; }
-  .seasonal-stars { width: 100px; right: 0; bottom: 4px; opacity: .22; }
+  .seasonal-pine { width: 180px; left: -36px; bottom: -22px; opacity: .34; }
+  .seasonal-stars { width: 130px; right: 0; bottom: 4px; opacity: .58; }
   .seasonal-decor-hero .seasonal-hanging { display: none; }
-  .seasonal-decor-pine .seasonal-pine { width: 140px; opacity: .1; }
-  .seasonal-decor-ornaments .seasonal-pine { width: 170px; right: -36px; bottom: -24px; }
-  .seasonal-decor-ornaments .seasonal-hanging { width: 62px; right: 0; opacity: .1; }
+  .seasonal-decor-pine .seasonal-pine { width: 170px; opacity: .3; }
+  .seasonal-decor-ornaments .seasonal-pine { width: 210px; right: -36px; bottom: -24px; }
+  .seasonal-decor-ornaments .seasonal-hanging { width: 86px; right: 0; opacity: .4; }
 }
 @media print {
   .seasonal-decor { display: none; }
