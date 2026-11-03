@@ -18,6 +18,7 @@ tio-philo-website/
 │   │   ├── brand-logo.tsx           Uploaded logo component
 │   │   ├── drink-line-art.tsx       Continuous SVG drink drawings
 │   │   ├── photo-placeholder.tsx    Photo or empty-photo presentation
+│   │   ├── seasonal-decorations.tsx Minimalist Christmas line art
 │   │   └── coffee-branch.tsx        Decorative SVG branch
 │   ├── lib/
 │   │   ├── site.ts                  Business data and DrinkPhoto type
@@ -306,6 +307,21 @@ When `photo.src` is `null` or an empty string, `DrinkLineArt` and “Drink photo
 | `aria-hidden="true"` | Exclude the decoration from the accessible reading order |
 
 The geometry is drawing data, not business logic. CSS controls its position, width, opacity, and color. There is no need to understand every path coordinate to maintain menu or pricing content.
+
+### Seasonal decoration component
+
+`src/components/seasonal-decorations.tsx` exports `SeasonalDecorations({ variant = "pine" })`. The `SeasonalVariant` type permits `hero`, `pine`, or `ornaments`, similar to a small set of allowed LWC property values. The homepage uses it in the hero, flavors, packages, and contact sections.
+
+| Function | Purpose |
+| --- | --- |
+| `PineSprig()` | Return an evergreen sprig SVG with needles and two small berries |
+| `HangingOrnaments()` | Return two outlined baubles, grouped separately so they sway at different speeds |
+| `QuietStars()` | Return small star outlines grouped for staggered, gradual opacity changes |
+| `SeasonalDecorations({ variant })` | Combine the drawings and select a layout class; the `pine` variant omits baubles |
+
+These are Server Components with no state, event handlers, timers, or browser APIs. CSS performs the motion after rendering. This is comparable to an LWC template with CSS keyframes, without requiring a JavaScript controller for the animation. `aria-hidden` and `focusable="false"` exclude the drawings from assistive navigation. `pointer-events: none` lets clicks reach the actual page controls.
+
+The seasonal CSS block uses `.seasonal-stage` to establish a local stacking context and `.seasonal-decor` to position clipped artwork behind content. Dark sections use pale gold outlines; light sections use muted brown. Mobile rules reduce decoration sizes and hide the hero baubles. The `ornament-sway`, `star-glow`, and `drink-float` keyframes animate rotation, opacity, and a four-pixel vertical travel respectively. They run only inside `prefers-reduced-motion: no-preference`; the reduced-motion rule also explicitly disables animation. Decorations are hidden when printing.
 
 ## 8. `src/app/globals.css`: style reference
 

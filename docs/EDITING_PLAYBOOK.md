@@ -163,6 +163,19 @@ Edit the `:root` variables in `globals.css`. For example, `--accent` influences 
 
 Some subtle decorative shades are specified directly in later rules. Review them if changing the overall palette. Check readability in the dark contact section as well as on the ivory background.
 
+### Seasonal decorations and looping animation
+
+The SVG artwork is in `src/components/seasonal-decorations.tsx`. Its three layouts are `hero`, `pine`, and `ornaments`. In `page.tsx`, `<SeasonalDecorations variant="hero" />` selects a layout, much like passing a property to a child LWC. An omitted variant defaults to `pine`.
+
+To change the appearance, find the seasonal block near the end of `globals.css`:
+
+- Change the `.seasonal-decor` color or individual SVG opacity to adjust visibility.
+- Change the `12s`, `9s`, or `10s` animation durations to adjust speed; longer times are slower.
+- Change the small rotation or translation values in `@keyframes` to adjust movement. Keep movement away from text and controls.
+- Keep the reduced-motion media rules so visitors who request less motion receive a static page.
+
+To remove the seasonal artwork, remove the four `<SeasonalDecorations ... />` tags and its import from `page.tsx`. The associated component and CSS can remain for next season. To stop drink illustrations floating as well, remove the `.drink-line-art` animation rules from the `prefers-reduced-motion: no-preference` block.
+
 ### Text size
 
 The root CSS tokens `--text-body`, `--text-small`, and `--text-label` control normal paragraphs, secondary text, and small section labels. They currently use `1rem`, `.875rem`, and `.75rem`: normally 16px, 14px, and 12px. A `rem` is relative to the root font size, so these text sizes also follow the reader’s browser font-size preference.

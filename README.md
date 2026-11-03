@@ -29,6 +29,7 @@ Open the local URL printed by Next.js, normally http://localhost:3000.
 - `src/lib/site.ts`: brand messages, verses, flavors, six package prices, add-ons, phone numbers, Facebook URL, and photo paths.
 - `src/app/page.tsx`: service, menu, packages, Love Wall, faith, and booking sections.
 - `src/app/globals.css`: layout, responsive styles, and brand colors.
+- `src/components/seasonal-decorations.tsx`: minimalist evergreen sprigs, stars, and hanging ornaments behind the hero, flavors, packages, and contact sections. The seasonal CSS block controls their placement, low opacity, and slow loops; reduced-motion settings disable animation.
 - `public/brand/tio-philo-emblem.png`: the uploaded logo, copied without alteration. CSS frames the emblem to hide the source image's outer margins.
 - `public/brand/tio-philo-emblem-dark-transparent.png`: the dark hero logo with transparent outer background and transparent light areas inside the badge. The original dark JPG is retained as a reference. The header uses the original logo with CSS blending and brightness.
 - `public/brand/tio-philo-love-wall.png`: transparent brown Love Wall illustration used inside the labeled Love Wall card. See [asset notes](docs/ASSET_NOTES.md) for its source and generation prompt.

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { BrandLogo } from "@/components/brand-logo";
 import { PhotoPlaceholder } from "@/components/photo-placeholder";
+import { SeasonalDecorations } from "@/components/seasonal-decorations";
 import { publicAssetPath } from "@/lib/paths";
 import { addOns, drinkPhotos, flavors, packages, site, verses } from "@/lib/site";
 import loveWall from "../../public/brand/tio-philo-love-wall.png";
@@ -32,7 +33,8 @@ export default function Home() {
       </header>
 
       <main id="main">
-        <section className="hero wrap" id="home" aria-labelledby="hero-heading">
+        <section className="hero wrap seasonal-stage" id="home" aria-labelledby="hero-heading">
+          <SeasonalDecorations variant="hero" />
           <div className="hero-copy">
             <p className="eyebrow">COFFEE FOR YOUR SPECIAL OCCASIONS</p>
             <h1 id="hero-heading">Make every<br />celebration<br /><em>Brew-tiful.</em></h1>
@@ -78,7 +80,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="flavors-section wrap section-space" id="flavors" aria-labelledby="flavors-heading">
+        <section className="flavors-section wrap section-space seasonal-stage" id="flavors" aria-labelledby="flavors-heading">
+          <SeasonalDecorations />
           <div className="section-heading section-heading-inline">
             <div>
               <p className="eyebrow">OUR FLAVORS</p>
@@ -101,7 +104,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="packages-section" id="packages" aria-labelledby="packages-heading">
+        <section className="packages-section seasonal-stage" id="packages" aria-labelledby="packages-heading">
+          <SeasonalDecorations variant="ornaments" />
           <div className="wrap section-space">
             <div className="section-heading section-heading-inline">
               <div>
@@ -176,7 +180,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="contact-section" id="contact" aria-labelledby="contact-heading">
+        <section className="contact-section seasonal-stage" id="contact" aria-labelledby="contact-heading">
+          <SeasonalDecorations variant="ornaments" />
           <div className="contact-inner wrap">
             <div>
               <p className="eyebrow">LET’S MAKE IT BREW-TIFUL</p>
